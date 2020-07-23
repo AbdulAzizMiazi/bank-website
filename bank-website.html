@@ -6,21 +6,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Bank-Website</title>
-    <style>
-        .page-heading{
-        margin-bottom: 40px;
-        }
-        .my-container{
-            margin-top: 80px;
-        }
-        .input-area{
-            padding: 30px;
-            border-radius: 10px;
-        }
-    </style>
+
 </head>
 <body>
-    <div class="container my-container">
+    <div class="container" id="my-container">
         <h1 class="text-center page-heading">Welcome To Bangladesh Bank</h1>
         <div class="input-area shadow mb-5 bg-white">
             <h3>Login</h3>
@@ -28,8 +17,78 @@
             <br>
             <input type="password" class="form-control" placeholder="Enter Your Password">
             <br>
-            <button type="submit" class="btn btn-success">Enter</button>
+            <button type="submit" class="btn btn-success" id="enter-btn">Enter</button>
         </div>
     </div>
+    <div id="wrapper" class="container">       
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="old-deposit">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$ 00</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="balance status">
+                    <h5>Balance</h5>
+                    <h2>$ <span id="old-balance">1240</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class = "col-md-6">
+                <div class="input-area shadow mt-5 bg-white">
+                    <h4>Deposit</h4>
+                    <input type="text" class="form-control" id="deposit-amount" placeholder="$ amount you want to deposit">
+                    <br>
+                    <button class="btn btn-success" id="deposit-btn">Deposit</button>
+                </div>
+            </div>
+            <div class = "col-md-6">
+                <div class="input-area shadow mt-5 bg-white">
+                    <h4>Withdraw</h4>
+                    <input type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                    <br>
+                    <button class="btn btn-success">Withdraw</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /*for transition*/
+        document.getElementById("enter-btn").addEventListener("click", function(){
+            document.getElementById('my-container').style.display = "none";
+            document.getElementById('wrapper').style.display = "block";
+        })
+        /*Now, it's time to calculation*/
+        document.getElementById("deposit-btn").addEventListener("click", function(){
+            //taking the deposit user input
+            var depositAmountStr = document.getElementById("deposit-amount").value;
+            var depositAmount = parseFloat(depositAmountStr);
+            //taking old Deposit amount
+            var oldDepositAmount = parseFloat(document.getElementById("old-deposit").innerText);
+            //updating Deposit
+            var newDeposit = oldDepositAmount + depositAmount;
+            document.getElementById("old-deposit").innerText = newDeposit;
+            //cleaning input box
+            document.getElementById("deposit-amount").value = "";
+            //updating The Balance
+            var oldBalance = parseFloat(document.getElementById("old-balance").innerText);
+            var newBalance = oldBalance + depositAmount;
+            document.getElementById("old-balance").innerText = newBalance;
+        })
+
+
+    </script>
+
+
 </body>
 </html>
