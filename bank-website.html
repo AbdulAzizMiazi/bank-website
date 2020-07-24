@@ -31,7 +31,7 @@
             <div class="col-md-4">
                 <div class="withdraw status">
                     <h5>Withdraw</h5>
-                    <h2>$ 00</h2>
+                    <h2>$ <span id="old-withdraw">00</span> </h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -53,9 +53,9 @@
             <div class = "col-md-6">
                 <div class="input-area shadow mt-5 bg-white">
                     <h4>Withdraw</h4>
-                    <input type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                    <input type="text" class="form-control" id="withdraw-amount" placeholder="$ amount you want to withdraw">
                     <br>
-                    <button class="btn btn-success">Withdraw</button>
+                    <button class="btn btn-success" id="withdraw-btn">Withdraw</button>
                 </div>
             </div>
         </div>
@@ -68,7 +68,8 @@
             document.getElementById('my-container').style.display = "none";
             document.getElementById('wrapper').style.display = "block";
         })
-        /*Now, it's time to calculation*/
+        /*Now, it's time for calculation*/
+        /*calculation for deposit+balance*/
         document.getElementById("deposit-btn").addEventListener("click", function(){
             //taking the deposit user input
             var depositAmountStr = document.getElementById("deposit-amount").value;
@@ -77,16 +78,27 @@
             var oldDepositAmount = parseFloat(document.getElementById("old-deposit").innerText);
             //updating Deposit
             var newDeposit = oldDepositAmount + depositAmount;
-            document.getElementById("old-deposit").innerText = newDeposit;
+            document.getElementById("old-deposit").innerText = newDeposit.toFixed(3);
             //cleaning input box
             document.getElementById("deposit-amount").value = "";
             //updating The Balance
             var oldBalance = parseFloat(document.getElementById("old-balance").innerText);
             var newBalance = oldBalance + depositAmount;
-            document.getElementById("old-balance").innerText = newBalance;
+            document.getElementById("old-balance").innerText = newBalance.toFixed(3);
         })
-
-
+        /*calculation for Withdraw+balance*/
+        document.getElementById("withdraw-btn").addEventListener("click", function(){
+            var withdrawAmount = parseFloat(document.getElementById("withdraw-amount").value);
+            var oldBalance = parseFloat(document.getElementById("old-balance").innerText);
+            var oldWithdrawAmount = parseFloat(document.getElementById("old-withdraw").innerText);
+            
+            var currentWithdrawAmount = oldWithdrawAmount + withdrawAmount;
+            var currentBalance = oldBalance -withdrawAmount;
+            //updating everything
+            document.getElementById("old-withdraw").innerText = currentWithdrawAmount.toFixed(3);
+            document.getElementById("old-balance").innerText = currentBalance.toFixed(3);
+            document.getElementById("withdraw-amount").value = "";
+        })
     </script>
 
 
